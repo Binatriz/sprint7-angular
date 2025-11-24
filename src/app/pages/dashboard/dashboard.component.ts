@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-//import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Veiculo } from '../../models/veiculo.model';
 import { VehicleData } from '../../models/vehicleData.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -8,7 +8,6 @@ import { CarroVin } from '../../utils/carroVinInterface';
 import {  Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { MenuComponent } from '../../menu/menu.component';
-import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +33,7 @@ export class DashboardComponent implements OnInit {
 
   onChange() {
     this.vinForm.controls.vin.valueChanges.subscribe((value) => {
-      this.reqVin = this.dashboardService
+      this.reqVin = this.authService
         .buscarVin(value as string)
         .subscribe((res) => {
           this.carVin = res;
@@ -42,10 +41,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.dashboardService.getVehicles().subscribe((res) => {
+    this.authService.getVehicles().subscribe((res) => {
       console.log(res.vehicles);
       this.vehicles = res.vehicles;
     });
