@@ -8,11 +8,11 @@ import { VeiculosAPI} from '../models/veiculo.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class DashboardService {
 
-  private apiUrl = "http://localhost:3001/";
+  private apiUrl = 'http://localhost:3001';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getVehicles(): Observable<VeiculosAPI>{
     return this.http.get<VeiculosAPI> (`${this.apiUrl}/vehicles`)
